@@ -1,4 +1,5 @@
 using BlogCRUD.Services;
+using BlogCRUD.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +8,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Register Service (DI)
-builder.Services.AddScoped<BlogService>();
+builder.Services.Configure<MongoDbSettings>(
+    builder.Configuration.GetSection("MongoDbSettings"));
+
+builder.Services.AddSingleton<BlogService>();
 
 var app = builder.Build();
 

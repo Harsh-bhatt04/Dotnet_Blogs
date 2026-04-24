@@ -1,53 +1,47 @@
 using BlogCRUD.Models;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 namespace BlogCRUD.Services
 {
     public class BlogService
     {
-        private static readonly List<Blog> _blogs =
-        [
-            new() { ID = 1, Title = "First Post", Body = "My first post" },
-            new() { ID = 2, Title = "Second Post", Body = "My Second post" },
-            new() { ID = 3,Title = "Third Post", Body = "My Third post" }
-        ];
-        
-        public List<Blog> GetAll()
+        private readonly IMongoCollection<Blog> _blogs;
+
+        public BlogService(IOptions<MongoDbSettings> settings)
         {
-            return _blogs;
+            var mongoClient = new MongoClient(settings.Value.ConnectionString);
+            var database = mongoClient.GetDatabase(settings.Value.DatabaseName);
+
+            _blogs = database.GetCollection<Blog>(settings.Value.CollectionName);
         }
 
-        public Blog Add(Blog blog)
+        public async Task<List<Blog>> GetAll()
         {
-            _blogs.Add(blog);
+            return await _blogs.Find(_ => true).ToListAsync();
+        }
+
+        public async Task<Blog> Add(Blog blog)
+        {
+            await _blogs.InsertOneAsync(blog);
             return blog;
         }
 
-        public Blog? GetBlogById(int id)
+        public async Task<Blog?> GetBlogById(string id)
         {
-            return _blogs.FirstOrDefault(b => b.ID == id);
+            return await _blogs.Find(b => b.ID == id).FirstOrDefaultAsync();
         }
 
-        public Blog? UpdateBlog(int id, Blog updatedBlog)
-        {   
-            var blog = _blogs.FirstOrDefault((b) => b.ID == id);
-
-            if(blog == null)
-                return null;
-            blog.Title = updatedBlog.Title;
-            blog.Body = updatedBlog.Body;
-
-            return blog;
-            
-        }
-
-        public Blog? DeleteBlogByID(int id)
+        public async Task<bool> UpdateBlog(string id, Blog blog)
         {
-            var blog = _blogs.FirstOrDefault(b => b.ID == id);
-            if(blog == null)
-                return null;
-            _blogs.Remove(blog);
-            return blog;
+            var result = await _blogs.ReplaceOneAsync(b => b.ID == id, blog);
+            return result.MatchedCount > 0;
         }
 
+        public async Task<bool> DeleteBlogByID(string id)
+        {
+            var result = await _blogs.DeleteOneAsync(b => b.ID == id);
+            return result.DeletedCount > 0;
+        }
     }
 }

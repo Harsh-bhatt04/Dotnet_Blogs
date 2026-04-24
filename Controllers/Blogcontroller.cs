@@ -17,21 +17,14 @@ namespace BlogCRUD.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetBlogs()
+        public async Task<IActionResult> GetBlogs()
         {
-            var blogs = _blogService.GetAll();
-            var result = blogs.Select(b => new BlogResponseDto
-            {
-                ID = b.ID,
-                Title = b.Title,
-                Body = b.Body
-            });
-
-            return Ok(result);
+            var blogs = await _blogService.GetAll();
+            return Ok(blogs);
         }
 
         [HttpPost]
-        public IActionResult CreateBlog(CreateBlogDto dto)
+        public async Task<IActionResult> CreateBlog(CreateBlogDto dto)
         {
             var blog = new Blog
             {
@@ -39,38 +32,24 @@ namespace BlogCRUD.Controllers
                 Body = dto.Body
             };
 
-            var created = _blogService.Add(blog);
-
-            var response = new BlogResponseDto
-            {
-                ID = created.ID,
-                Title = created.Title,
-                Body = created.Body
-            };
-
-            return Ok(response);
+            await _blogService.Add(blog);
+            return Ok(blog);
         }
 
-        
+
         [HttpGet("{id}")]
-        public IActionResult GetBlogById(int id)
+        public async Task<IActionResult> GetBlogById(string id)
         {
-            var blog = _blogService.GetBlogById(id);
+            var blog = await _blogService.GetBlogById(id);
 
             if (blog == null)
                 return NotFound();
-            var response = new BlogResponseDto
-            {
-                ID = blog.ID,
-                Title = blog.Title,
-                Body = blog.Body
-            };
 
-            return Ok(response);
+            return Ok(blog);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateBlog(int id, UpdateBlogDto dto)
+        public async Task<IActionResult> UpdateBlog(string id, UpdateBlogDto dto)
         {
             var blog = new Blog
             {
@@ -79,27 +58,23 @@ namespace BlogCRUD.Controllers
                 Body = dto.Body
             };
 
-            var updated = _blogService.UpdateBlog(id,blog);
+            var updated = await _blogService.UpdateBlog(id, blog);
 
-            if(updated == null)
+            if (!updated)
                 return NotFound();
-            var response = new BlogResponseDto
-            {
-                ID = updated.ID,
-                Title = updated.Title,
-                Body = updated.Body
-            };
 
-            return Ok(response);
+            return Ok(blog);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteBlogByID(int id)
+        public async Task<IActionResult> DeleteBlogByID(string id)
         {
-            var blog = _blogService.DeleteBlogByID(id);
-            if (blog == null)
+            var deleted = await _blogService.DeleteBlogByID(id);
+
+            if (!deleted)
                 return NotFound();
-            return Ok(blog);
+
+            return Ok("Deleted successfully");
         }
     }
 }

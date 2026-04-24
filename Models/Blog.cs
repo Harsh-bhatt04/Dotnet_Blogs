@@ -1,8 +1,13 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace BlogCRUD.Models
 {
     public class Blog
     {
-        public int ID{get; set;}
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? ID{get; set;}
         public required string Title{get; set;}
         public required string Body {get; set;}
     }

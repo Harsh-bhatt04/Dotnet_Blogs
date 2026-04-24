@@ -35,3 +35,9 @@
 /Users/harshbhatt/Desktop/Development/Dotnet/BlogCRUD/obj/Debug/net10.0/BlogCRUD.genruntimeconfig.cache
 /Users/harshbhatt/Desktop/Development/Dotnet/BlogCRUD/obj/Debug/net10.0/ref/BlogCRUD.dll
 /Users/harshbhatt/Desktop/Development/Dotnet/BlogCRUD/obj/Debug/net10.0/BlogCRUD.sourcelink.json
+/Users/harshbhatt/Desktop/Development/Dotnet/BlogCRUD/bin/Debug/net10.0/DnsClient.dll
+/Users/harshbhatt/Desktop/Development/Dotnet/BlogCRUD/bin/Debug/net10.0/MongoDB.Bson.dll
+/Users/harshbhatt/Desktop/Development/Dotnet/BlogCRUD/bin/Debug/net10.0/MongoDB.Driver.dll
+/Users/harshbhatt/Desktop/Development/Dotnet/BlogCRUD/bin/Debug/net10.0/SharpCompress.dll
+/Users/harshbhatt/Desktop/Development/Dotnet/BlogCRUD/bin/Debug/net10.0/Snappier.dll
+/Users/harshbhatt/Desktop/Development/Dotnet/BlogCRUD/bin/Debug/net10.0/ZstdSharp.dll
