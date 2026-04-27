@@ -6,4 +6,5 @@ const API = axios.create({
 
 export const getBlogs = () => API.get("/");
 export const createBlog = (data) => API.post("/", data);
+export const updateBlog = (id, data) => API.put(`/${id}`, data);
 export const deleteBlog = (id) => API.delete(`/${id}`);

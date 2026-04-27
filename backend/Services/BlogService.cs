@@ -18,7 +18,9 @@ namespace BlogCRUD.Services
 
         public async Task<List<Blog>> GetAll()
         {
-            return await _blogs.Find(_ => true).ToListAsync();
+            return await _blogs.Find(_ => true)
+            .SortByDescending(b => b.CreatedAt)
+            .ToListAsync();
         }
 
         public async Task<Blog> Add(Blog blog)
