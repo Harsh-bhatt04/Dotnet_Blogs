@@ -21,6 +21,7 @@ builder.Services.AddCors(options =>
 builder.Services.Configure<MongoDbSettings>(
     builder.Configuration.GetSection("MongoDbSettings"));
 
+builder.Services.AddSingleton<AuthService>();
 builder.Services.AddSingleton<BlogService>();
 
 var app = builder.Build();

@@ -84,3 +84,4 @@
 /Users/harshbhatt/Desktop/Development/Dotnet/BlogCRUD/backend/obj/Debug/net10.0/BlogCRUD.pdb
 /Users/harshbhatt/Desktop/Development/Dotnet/BlogCRUD/backend/obj/Debug/net10.0/BlogCRUD.genruntimeconfig.cache
 /Users/harshbhatt/Desktop/Development/Dotnet/BlogCRUD/backend/obj/Debug/net10.0/ref/BlogCRUD.dll
+/Users/harshbhatt/Desktop/Development/Dotnet/BlogCRUD/backend/bin/Debug/net10.0/BCrypt-Net-Next.dll

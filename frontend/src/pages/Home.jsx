@@ -8,7 +8,6 @@ function Home() {
 
     const fetchBlogs = async () => {
         const res = await getBlogs();
-        console.log(res)
         setBlogs(res.data);
     };
 
@@ -22,34 +21,73 @@ function Home() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 text-gray-100">
+        <div className="relative min-h-screen overflow-hidden bg-black text-white">
 
-            {/* Container */}
-            <div className="max-w-4xl mx-auto px-4 py-10">
+            {/* Background Glow Effects */}
+            <div className="absolute inset-0 z-0">
 
-                {/* Header */}
-                <div className="mb-10 text-center">
-                    <h1 className="text-4xl font-bold tracking-tight">
-                        📝 Blog Platform
+                {/* Top Glow */}
+                <div className="absolute top-[-120px] left-[-100px] h-[350px] w-[350px] rounded-full bg-purple-500/20 blur-3xl animate-pulse"></div>
+
+                {/* Right Glow */}
+                <div className="absolute top-[20%] right-[-120px] h-[400px] w-[400px] rounded-full bg-blue-500/20 blur-3xl"></div>
+
+                {/* Bottom Glow */}
+                <div className="absolute bottom-[-150px] left-[30%] h-[350px] w-[350px] rounded-full bg-pink-500/10 blur-3xl"></div>
+
+                {/* Morph Blur */}
+                <div className="absolute inset-0 backdrop-blur-[120px]"></div>
+            </div>
+
+            {/* Main Content */}
+            <div className="relative z-10 max-w-5xl mx-auto px-6 py-12">
+
+                {/* Hero Section */}
+                <div className="text-center mb-14">
+
+                    <div className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl mb-6">
+                        <span className="text-sm text-gray-300 tracking-wide">
+                            Modern Blogging Platform
+                        </span>
+                    </div>
+
+                    <h1 className="text-6xl font-black tracking-tight bg-gradient-to-r from-white via-gray-300 to-gray-500 text-transparent bg-clip-text">
+                        Write Freely.
                     </h1>
-                    <p className="text-gray-400 mt-2">
-                        Create, manage and explore blogs
+
+                    <h1 className="text-6xl font-black tracking-tight bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text mt-2">
+                        Share Beautifully.
+                    </h1>
+
+                    <p className="text-gray-400 mt-6 max-w-2xl mx-auto text-lg leading-relaxed">
+                        A modern full-stack blogging platform built with
+                        React, ASP.NET Core and MongoDB Atlas.
                     </p>
                 </div>
 
-                {/* Form Section */}
-                <div className="mb-10">
+                {/* Create Blog Card */}
+                <div className="mb-12 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl shadow-2xl shadow-black/40 p-6">
                     <BlogForm onSuccess={fetchBlogs} />
                 </div>
 
-                {/* Divider */}
-                <div className="border-t border-gray-800 my-8"></div>
+                {/* Blog Section */}
+                <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl shadow-2xl shadow-black/40 p-6">
 
-                {/* Blog List */}
-                <div>
-                    <h2 className="text-2xl font-semibold mb-6">
-                        All Blogs
-                    </h2>
+                    <div className="flex items-center justify-between mb-8">
+                        <div>
+                            <h2 className="text-3xl font-bold">
+                                Latest Blogs
+                            </h2>
+
+                            <p className="text-gray-400 mt-1">
+                                Explore recently published blogs
+                            </p>
+                        </div>
+
+                        <div className="px-4 py-2 rounded-xl bg-white/10 border border-white/10 text-sm text-gray-300">
+                            {blogs.length} Posts
+                        </div>
+                    </div>
 
                     <BlogList
                         blogs={blogs}
@@ -57,7 +95,6 @@ function Home() {
                         onRefresh={fetchBlogs}
                     />
                 </div>
-
             </div>
         </div>
     );
