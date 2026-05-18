@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using BlogCRUD.Models;
 using BlogCRUD.Services;
 using BlogCRUD.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlogCRUD.Controllers
 {
@@ -23,6 +24,7 @@ namespace BlogCRUD.Controllers
             return Ok(blogs);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateBlog(CreateBlogDto dto)
         {

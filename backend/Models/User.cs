@@ -15,8 +15,6 @@ namespace BlogCRUD.Models
         public string Email {set; get;}
 
         public string Password {set; get;}
-        
-
 
     }
 }
